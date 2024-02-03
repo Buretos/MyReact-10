@@ -1,14 +1,17 @@
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { GameLayout } from './game-layout';
 import { RESTART_GAME } from './actions';
 
-export const GameContainer = ({ dispatch }) => {
+export class GameContainer extends Component {
+  handleRestart = () => {
+    this.props.dispatch(RESTART_GAME);
+  };
 
-	const handleRestart = () => {
-		dispatch(RESTART_GAME);
-	};
-
-	return <GameLayout handleRestart={handleRestart} />;
-};
+  render() {
+    return <GameLayout handleRestart={this.handleRestart} />;
+  }
+}
 
 export const Game = connect()(GameContainer);
+
