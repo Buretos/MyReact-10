@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
-import { PLAYER_ACTION, PLAYER_NAME, STATUS, PLAYER } from '../../constants';
+import { connect } from 'react-redux';
+import { PLAYER_ACTION, PLAYER_NAME, STATUS } from '../../constants';
 import { InformationLayout } from './information-layout';
 
-export const Information = ({ status, currentPlayer }) => {
+export const InformationContainer = ({ status, currentPlayer }) => {
+
 	const playerAction = PLAYER_ACTION[status];
 	const playerName = PLAYER_NAME[currentPlayer];
 
@@ -12,7 +13,9 @@ export const Information = ({ status, currentPlayer }) => {
 	return <InformationLayout information={information} />;
 };
 
-Information.propTypes = {
-	status: PropTypes.oneOf([STATUS.DRAW, STATUS.TURN, STATUS.WIN]),
-	currentPlayer: PropTypes.oneOf([PLAYER.CROSS, PLAYER.NOUGHT, PLAYER.NOBODY]),
-};
+const mapStateToProps = (state) => ({
+	status: state.status,
+	currentPlayer: state.currentPlayer,
+});
+
+export const Information = connect(mapStateToProps)(InformationContainer);
